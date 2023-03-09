@@ -3,13 +3,28 @@ let count = 0;
 
 const pushBtn = document.getElementById("pushBtn");
 const popBtn = document.getElementById("popBtn");
+const numberInput = document.getElementById("numberInput");
 
 pushBtn.addEventListener("click", push);
 popBtn.addEventListener("click", pop);
 
-function push() {
-  const numberInput = document.getElementById("numberInput");
+numberInput.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    if (numberInput === document.activeElement) {
+      event.preventDefault();
+      push();
+    }
+  }
+});
 
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Delete") {
+    event.preventDefault();
+    pop();
+  }
+});
+
+function push() {
   if (numberInput.value === "") {
     alert("Please enter a number to Push");
     return;
@@ -71,13 +86,4 @@ function getRandomColor(j) {
   ];
   return colors[j % colors.length];
 }
-
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    push();
-  } else if (event.key === "Delete") {
-    event.preventDefault();
-    pop();
-  }
-});
+z
